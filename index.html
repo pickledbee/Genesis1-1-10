@@ -1,448 +1,104 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <base target="_top">
-    <!-- Include React and ReactDOM -->
-    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
-    <!-- Include Babel to compile JSX on the fly -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <!-- Optional: Include Tailwind CSS for styling -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  </head>
-  <body>
-    <div id="root"></div>
-    <!-- Your React code compiled with Babel -->
-    <script type="text/babel">
-      const BibleStudy = () => {
-        const [activeTab, setActiveTab] = React.useState('passage');
-        const [activeLens, setActiveLens] = React.useState('historical');
-        const [expandedVerses, setExpandedVerses] = React.useState({});
-
-        const passage = [
-          { num: 1, text: "Now a man of the house of Levi married a Levite woman," },
-          { num: 2, text: "and she became pregnant and gave birth to a son. When she saw that he was a fine child, she hid him for three months." },
-          { num: 3, text: "But when she could hide him no longer, she got a papyrus basket for him and coated it with tar and pitch. Then she placed the child in it and put it among the reeds along the bank of the Nile." },
-          { num: 4, text: "His sister stood at a distance to see what would happen to him." },
-          { num: 5, text: "Then Pharaoh's daughter went down to the Nile to bathe, and her attendants were walking along the riverbank. She saw the basket among the reeds and sent her female slave to get it." },
-          { num: 6, text: "She opened it and saw the baby. He was crying, and she felt sorry for him. 'This is one of the Hebrew babies,' she said." },
-          { num: 7, text: "Then his sister asked Pharaoh's daughter, 'Shall I go and get one of the Hebrew women to nurse the baby for you?'" },
-          { num: 8, text: "Pharaoh's daughter said to her, 'Yes.' So the girl went and got the baby's mother." },
-          { num: 9, text: "Pharaoh's daughter said to her, 'Take this baby and nurse him for me, and I will pay you.' So the woman took the baby and nursed him." },
-          { num: 10, text: "When the child grew older, she took him to Pharaoh's daughter and he became her son. She named him Moses, saying, 'I drew him out of the water.'" }
-        ];
-
-        const historicalContext = {
-          title: "Historical Context",
-          content: [
-            { 
-              heading: "Egyptian Oppression", 
-              text: "This story takes place during the Egyptian oppression of the Israelites (approximately 1525-1445 BCE). Pharaoh had ordered all Hebrew baby boys to be killed (Exodus 1:22) as a population control measure because the Israelites were becoming too numerous."
-            },
-            { 
-              heading: "The Nile River", 
-              text: "The Nile was the lifeblood of Egypt, considered divine. It's significant that Moses was saved through the very river that was meant to be an instrument of death for Hebrew boys."
-            },
-            { 
-              heading: "Egyptian Royal Life", 
-              text: "Egyptian princesses had significant authority and their own households. Pharaoh's daughter's decision to adopt Moses would have been unusual but within her power."
-            },
-            { 
-              heading: "Levite Tribe", 
-              text: "Moses' parents were from the tribe of Levi, which would later become the priestly tribe of Israel, showing God's providence in preparing Moses for his future role."
-            }
-          ]
-        };
-
-        const literaryAnalysis = {
-          title: "Literary Analysis",
-          content: [
-            { 
-              heading: "Structure", 
-              text: "The narrative is structured around a series of courageous women who defy authority: Moses' mother, his sister Miriam, and Pharaoh's daughter."
-            },
-            { 
-              heading: "Irony", 
-              text: "Multiple ironies appear: the deliverer of Israel is raised in Pharaoh's house; the mother is paid to nurse her own child; Pharaoh's edict to destroy male children is subverted within his own household."
-            },
-            { 
-              heading: "Naming", 
-              text: "The text withholds names of key figures (Moses' parents, his sister, Pharaoh's daughter) until later, focusing on their actions rather than identities. Only Moses is named in this passage."
-            },
-            { 
-              heading: "Parallels", 
-              text: "The story parallels other ancient 'abandoned child' narratives (like Sargon of Akkad), but with distinctive elements that highlight God's providence rather than chance."
-            }
-          ]
-        };
-
-        const theologicalThemes = {
-          title: "Theological Themes",
-          content: [
-            { 
-              heading: "Divine Providence", 
-              text: "God's hand is implicit throughout, orchestrating events without direct intervention. This demonstrates how God often works through ordinary human decisions and 'coincidences.'"
-            },
-            { 
-              heading: "Reversal of Fortune", 
-              text: "The passage shows God's pattern of using the weak to overcome the strong. A helpless baby ultimately becomes the downfall of the most powerful kingdom on earth."
-            },
-            { 
-              heading: "Courage in Oppression", 
-              text: "The story celebrates moral courage in the face of tyranny. Five women (Moses' mother, Miriam, Pharaoh's daughter, and her two servants) all defy Pharaoh's decree."
-            },
-            { 
-              heading: "Foreshadowing", 
-              text: "Moses' rescue from water foreshadows his later role in the parting of the Red Sea. His journey from death sentence to life prefigures Israel's journey from slavery to freedom."
-            }
-          ]
-        };
-
-        const personalApplication = {
-          title: "Personal Application",
-          content: [
-            { 
-              heading: "Trusting God in Crisis", 
-              text: "Moses' mother faced an impossible situation but acted with both faith and wisdom. When have you needed to both trust God and use your best judgment in a crisis?"
-            },
-            { 
-              heading: "Courage to Defy Injustice", 
-              text: "Multiple characters in this story risked their safety to do what was right. Where might God be calling you to stand against injustice despite potential personal cost?"
-            },
-            { 
-              heading: "Recognizing God's Providence", 
-              text: "God worked through 'coincidences' and ordinary decisions. What apparent coincidences in your life might actually be divine arrangements?"
-            },
-            { 
-              heading: "Cross-cultural Bridges", 
-              text: "Moses was positioned between two cultures from birth. How might God use your own cross-cultural experiences or understanding to build bridges?"
-            }
-          ]
-        };
-
-        const connections = {
-          title: "Biblical Connections",
-          content: [
-            { 
-              heading: "Acts 7:17-22", 
-              text: "Stephen's speech references Moses' birth and education, adding that he was 'educated in all the wisdom of the Egyptians and was powerful in speech and action.'"
-            },
-            { 
-              heading: "Hebrews 11:23-29", 
-              text: "Moses' parents are commended for their faith in hiding him: 'By faith Moses' parents hid him for three months after he was born, because they saw he was no ordinary child, and they were not afraid of the king's edict.'"
-            },
-            { 
-              heading: "Jesus' Birth (Matthew 2)", 
-              text: "Parallels exist between Moses and Jesus: both faced infanticide orders from rulers, both were divinely protected, and both would become deliverers."
-            },
-            { 
-              heading: "Exodus Story Arc", 
-              text: "This passage sets up the central tension of Exodus: Israel's oppression and need for deliverance, and introduces the reluctant deliverer who will later encounter God at the burning bush."
-            }
-          ]
-        };
-
-        const lenses = [
-          { id: 'historical', name: 'Historical Context', data: historicalContext },
-          { id: 'literary', name: 'Literary Analysis', data: literaryAnalysis },
-          { id: 'theological', name: 'Theological Themes', data: theologicalThemes },
-          { id: 'application', name: 'Personal Application', data: personalApplication },
-          { id: 'connections', name: 'Biblical Connections', data: connections }
-        ];
-
-        const toggleVerse = (num) => {
-          setExpandedVerses({
-            ...expandedVerses,
-            [num]: !expandedVerses[num]
-          });
-        };
-
-        const renderActiveContent = () => {
-          if (activeTab === 'passage') {
-            return (
-              <div className="space-y-4">
-                <h2 className="text-2xl font-bold mb-4">Exodus 2:1-10</h2>
-                <div className="space-y-2">
-                  {passage.map((verse) => (
-                    <div 
-                      key={verse.num}
-                      className="p-3 bg-gray-50 rounded-lg hover:bg-gray-100 cursor-pointer transition"
-                      onClick={() => toggleVerse(verse.num)}
-                    >
-                      <div className="flex items-start">
-                        <span className="font-bold text-blue-700 mr-2">{verse.num}</span>
-                        <div className="flex-1">
-                          <p>{verse.text}</p>
-                          {expandedVerses[verse.num] && (
-                            <div className="mt-3 pt-3 border-t border-gray-200">
-                              <h4 className="font-semibold text-gray-700 mb-2">Key Insights:</h4>
-                              <ul className="list-disc pl-5 space-y-1 text-sm">
-                                {verse.num === 1 && (
-                                  <>
-                                    <li>The man and woman are from the tribe of Levi (later identified as Amram and Jochebed in Exodus 6:20)</li>
-                                    <li>The text emphasizes their tribal identity, connecting Moses to Israel's future priestly line</li>
-                                    <li>The passage begins with a marriage during a time of oppression, showing life continuing despite hardship</li>
-                                  </>
-                                )}
-                                {verse.num === 2 && (
-                                  <>
-                                    <li>The Hebrew phrase for "fine child" (טוֹב, tov) is the same word used in Genesis for God's assessment of creation</li>
-                                    <li>Acts 7:20 describes Moses as "beautiful before God" or "exceedingly beautiful"</li>
-                                    <li>The mother's action in hiding the child was an act of civil disobedience against unjust authority</li>
-                                  </>
-                                )}
-                                {verse.num === 3 && (
-                                  <>
-                                    <li>The "basket" (תֵּבָה, tevah) is the same Hebrew word used for Noah's ark, connecting these salvation stories</li>
-                                    <li>The materials (papyrus, tar, pitch) were common in Egypt but echo the waterproofing of Noah's ark</li>
-                                    <li>Placing him in the reeds rather than the main current showed both desperation and careful planning</li>
-                                  </>
-                                )}
-                                {verse.num === 4 && (
-                                  <>
-                                    <li>This sister is later identified as Miriam, who becomes a prophet and leader alongside Moses</li>
-                                    <li>Her watchful presence demonstrates both family loyalty and remarkable courage</li>
-                                    <li>The text positions her as a guardian and strategic actor in the unfolding drama</li>
-                                  </>
-                                )}
-                                {verse.num === 5 && (
-                                  <>
-                                    <li>Egyptian royalty considered the Nile sacred, and bathing may have had religious significance</li>
-                                    <li>Her willingness to retrieve a Hebrew baby shows compassion that transcends ethnic boundaries</li>
-                                    <li>The location "among the reeds" connects to Israel's later journey through the Red Sea (Sea of Reeds)</li>
-                                  </>
-                                )}
-                                {verse.num === 6 && (
-                                  <>
-                                    <li>Her recognition of the child as Hebrew shows she understood the political implications of her choice</li>
-                                    <li>The baby's tears humanize him and create the emotional connection that leads to his rescue</li>
-                                    <li>This verse shows the triumph of compassion over political expediency</li>
-                                  </>
-                                )}
-                                {verse.num === 7 && (
-                                  <>
-                                    <li>Miriam's quick thinking shows remarkable presence of mind for a young girl in a dangerous situation</li>
-                                    <li>Her proposal creates a perfect solution that reunites mother and child while ensuring his safety</li>
-                                    <li>The dialogue is the first direct speech in the narrative, highlighting its importance</li>
-                                  </>
-                                )}
-                                {verse.num === 8 && (
-                                  <>
-                                    <li>The princess's simple "Yes" changes the course of history</li>
-                                    <li>The brevity of her response contrasts with the magnitude of its consequences</li>
-                                    <li>The arrangement satisfies both Egyptian custom (wet nurses were common) and divine purpose</li>
-                                  </>
-                                )}
-                                {verse.num === 9 && (
-                                  <>
-                                    <li>The irony reaches its peak as Moses' mother is paid to nurse her own son</li>
-                                    <li>The arrangement provides both security and legitimacy for the child's early upbringing</li>
-                                    <li>Moses would likely have learned his Hebrew identity and heritage during these early years</li>
-                                  </>
-                                )}
-                                {verse.num === 10 && (
-                                  <>
-                                    <li>The name "Moses" sounds like the Hebrew for "drawn out" (משׁה, mashah) but is likely Egyptian in origin</li>
-                                    <li>His dual identity (Hebrew birth, Egyptian upbringing) prepares him for his unique role</li>
-                                    <li>The verse marks a transition from family survival to the beginning of Moses' life as a prince of Egypt</li>
-                                  </>
-                                )}
-                              </ul>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            );
-          } else if (activeTab === 'study') {
-            const activeLensData = lenses.find(l => l.id === activeLens)?.data;
-            return (
-              <div>
-                <div className="mb-6 flex flex-wrap gap-2">
-                  {lenses.map(lens => (
-                    <button
-                      key={lens.id}
-                      onClick={() => setActiveLens(lens.id)}
-                      className={`px-4 py-2 rounded-full text-sm font-medium transition ${
-                        activeLens === lens.id 
-                          ? 'bg-blue-600 text-white' 
-                          : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                      }`}
-                    >
-                      {lens.name}
-                    </button>
-                  ))}
-                </div>
-                
-                {activeLensData && (
-                  <div>
-                    <h2 className="text-2xl font-bold mb-4">{activeLensData.title}</h2>
-                    <div className="space-y-6">
-                      {activeLensData.content.map((item, i) => (
-                        <div key={i} className="p-4 bg-white rounded-lg shadow-sm border border-gray-200">
-                          <h3 className="text-lg font-semibold text-blue-700 mb-2">{item.heading}</h3>
-                          <p>{item.text}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-            );
-          } else if (activeTab === 'timeline') {
-            return (
-              <div>
-                <h2 className="text-2xl font-bold mb-6">Timeline of Moses' Early Life</h2>
-                <div className="relative">
-                  <div className="absolute top-0 bottom-0 left-1/2 w-1 bg-blue-300 transform -translate-x-1/2"></div>
-                  
-                  <div className="relative z-10">
-                    {[
-                      { year: "Before Birth", event: "Pharaoh orders all Hebrew boys to be thrown into the Nile (Exodus 1:22)" },
-                      { year: "Birth", event: "Moses is born to Levite parents Amram and Jochebed" },
-                      { year: "0-3 months", event: "Moses is hidden by his parents in their home" },
-                      { year: "3 months", event: "Moses is placed in a basket on the Nile" },
-                      { year: "3 months+", event: "Pharaoh's daughter finds and adopts Moses" },
-                      { year: "Infancy", event: "Moses is nursed by his birth mother" },
-                      { year: "Early Childhood", event: "Moses is brought to the Egyptian palace to be raised as royalty" },
-                      { year: "Youth", event: "Moses is 'educated in all the wisdom of the Egyptians' (Acts 7:22)" },
-                      { year: "Age 40", event: "Moses kills an Egyptian and flees to Midian (Acts 7:23)" },
-                      { year: "Age 80", event: "Moses encounters God at the burning bush (Acts 7:30)" }
-                    ].map((item, i) => (
-                      <div key={i} className={`flex items-start mb-8 ${i % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}>
-                        <div className={`w-5/12 ${i % 2 === 0 ? 'text-right pr-8' : 'text-left pl-8'}`}>
-                          <h3 className="font-bold text-blue-700">{item.year}</h3>
-                          <p>{item.event}</p>
-                        </div>
-                        <div className="relative w-2/12 flex justify-center">
-                          <div className="h-6 w-6 rounded-full bg-blue-600 border-4 border-blue-100"></div>
-                        </div>
-                        <div className="w-5/12"></div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            );
-          } else if (activeTab === 'characters') {
-            return (
-              <div>
-                <h2 className="text-2xl font-bold mb-6">Key Characters</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {[
-                    { 
-                      name: "Moses", 
-                      description: "The central figure of the narrative, saved from death as an infant. His name means 'drawn out' of water. He will become Israel's greatest prophet and deliverer.",
-                      traits: ["Vulnerable", "Preserved", "Of dual identity (Hebrew and Egyptian)"],
-                      significance: "Represents Israel itself: endangered, preserved by God, and destined for a greater purpose."
-                    },
-                    { 
-                      name: "Moses' Mother (Jochebed)", 
-                      description: "A Levite woman who defies Pharaoh's edict by hiding her son for three months, then creates an ingenious plan for his survival.",
-                      traits: ["Courageous", "Resourceful", "Faithful"],
-                      significance: "Demonstrates how maternal love and courage can overcome seemingly impossible odds."
-                    },
-                    { 
-                      name: "Moses' Sister (Miriam)", 
-                      description: "Watches over her brother and cleverly arranges for their mother to nurse him. Later becomes a prophetess and leader in Israel.",
-                      traits: ["Observant", "Quick-thinking", "Bold"],
-                      significance: "Shows how even children can be agents of God's purposes through courage and wisdom."
-                    },
-                    { 
-                      name: "Pharaoh's Daughter", 
-                      description: "An Egyptian princess who rescues Moses despite knowing his Hebrew identity, defying her father's decree.",
-                      traits: ["Compassionate", "Independent", "Powerful"],
-                      significance: "Represents how God can work through people outside the covenant community to accomplish His purposes."
-                    },
-                    { 
-                      name: "Pharaoh", 
-                      description: "Though not directly present in this passage, his decree drives the action. His attempt to destroy Israel becomes the means of raising their deliverer in his own household.",
-                      traits: ["Oppressive", "Fearful", "Unaware"],
-                      significance: "Represents how human opposition to God's plans often becomes the very means by which those plans succeed."
-                    }
-                  ].map((character, i) => (
-                    <div key={i} className="bg-white rounded-lg shadow overflow-hidden border border-gray-200">
-                      <div className="bg-blue-700 text-white p-3">
-                        <h3 className="text-xl font-bold">{character.name}</h3>
-                      </div>
-                      <div className="p-4">
-                        <p className="mb-3">{character.description}</p>
-                        <div className="mb-3">
-                          <h4 className="font-semibold text-blue-700">Key Traits:</h4>
-                          <ul className="list-disc pl-5">
-                            {character.traits.map((trait, j) => (
-                              <li key={j}>{trait}</li>
-                            ))}
-                          </ul>
-                        </div>
-                        <div>
-                          <h4 className="font-semibold text-blue-700">Significance:</h4>
-                          <p>{character.significance}</p>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            );
-          }
-        };
-
-        return (
-          <div className="max-w-6xl mx-auto p-4 bg-gray-50 min-h-screen">
-            <h1 className="text-3xl font-bold text-center mb-2">Exodus 2:1-10</h1>
-            <h2 className="text-xl text-center text-gray-600 mb-8">Moses' Birth and Adoption</h2>
-            
-            <div className="bg-white rounded-lg shadow-md overflow-hidden mb-8">
-              <div className="flex border-b">
-                <button 
-                  className={`px-4 py-3 font-medium text-sm flex-1 ${activeTab === 'passage' ? 'bg-blue-50 text-blue-700 border-b-2 border-blue-700' : 'text-gray-600 hover:bg-gray-50'}`}
-                  onClick={() => setActiveTab('passage')}
-                >
-                  Passage & Notes
-                </button>
-                <button 
-                  className={`px-4 py-3 font-medium text-sm flex-1 ${activeTab === 'study' ? 'bg-blue-50 text-blue-700 border-b-2 border-blue-700' : 'text-gray-600 hover:bg-gray-50'}`}
-                  onClick={() => setActiveTab('study')}
-                >
-                  Study Lenses
-                </button>
-                <button 
-                  className={`px-4 py-3 font-medium text-sm flex-1 ${activeTab === 'timeline' ? 'bg-blue-50 text-blue-700 border-b-2 border-blue-700' : 'text-gray-600 hover:bg-gray-50'}`}
-                  onClick={() => setActiveTab('timeline')}
-                >
-                  Timeline
-                </button>
-                <button 
-                  className={`px-4 py-3 font-medium text-sm flex-1 ${activeTab === 'characters' ? 'bg-blue-50 text-blue-700 border-b-2 border-blue-700' : 'text-gray-600 hover:bg-gray-50'}`}
-                  onClick={() => setActiveTab('characters')}
-                >
-                  Key Characters
-                </button>
-              </div>
-              
-              <div className="p-6">
-                {renderActiveContent()}
-              </div>
-            </div>
-            
-            <div className="bg-blue-50 p-6 rounded-lg shadow-md">
-              <h3 className="text-xl font-bold text-blue-800 mb-3">Central Message</h3>
-              <p className="text-blue-900">
-                This passage reveals how God works through ordinary people and seemingly chance events to preserve His chosen deliverer. 
-                In the midst of oppression and danger, God's providence unfolds through the courage of women, the tears of a baby, 
-                and the compassion of an Egyptian princess. Moses' birth story foreshadows Israel's own journey from death to life, 
-                from water to salvation, setting the stage for the greater exodus to come.
-              </p>
-            </div>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Genesis 1:1-10 Bible Study</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1 class="title">Genesis 1:1-10</h1>
+    <h2 class="subtitle">The Beginning of Creation</h2>
+    
+    <div class="study-container">
+      <div class="tabs">
+        <button id="tab-passage" class="tab-button active">Passage & Notes</button>
+        <button id="tab-themes" class="tab-button">Themes</button>
+        <button id="tab-connections" class="tab-button">Connections</button>
+        <button id="tab-pattern" class="tab-button">Pattern</button>
+      </div>
+      
+      <div class="tab-content">
+        <div id="passage-content" class="content-section active">
+          <h2 class="section-title">Genesis 1:1-10 (NIV)</h2>
+          <div id="verses-container" class="verses-container">
+            <!-- Verses will be inserted here by JavaScript -->
           </div>
-        );
-      };
-
-      ReactDOM.render(<BibleStudy />, document.getElementById('root'));
-    </script>
-  </body>
+        </div>
+        
+        <div id="themes-content" class="content-section">
+          <h2 class="section-title">Theological Themes</h2>
+          <div id="themes-container" class="themes-container">
+            <!-- Themes will be inserted here by JavaScript -->
+          </div>
+        </div>
+        
+        <div id="connections-content" class="content-section">
+          <h2 class="section-title">Biblical Connections</h2>
+          <div id="connections-container" class="connections-container">
+            <!-- Connections will be inserted here by JavaScript -->
+          </div>
+        </div>
+        
+        <div id="pattern-content" class="content-section">
+          <h2 class="section-title">Creation Pattern</h2>
+          <div class="table-container">
+            <table class="pattern-table">
+              <thead>
+                <tr>
+                  <th>Day</th>
+                  <th>Divine Speech</th>
+                  <th>Separation/Naming</th>
+                  <th>Evaluation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Day 1 (v.3-5)</td>
+                  <td>"Let there be light"</td>
+                  <td>Light from darkness<br>Light = "day"<br>Darkness = "night"</td>
+                  <td>"God saw that it was good"</td>
+                </tr>
+                <tr>
+                  <td>Day 2 (v.6-8)</td>
+                  <td>"Let there be a vault"</td>
+                  <td>Waters above from waters below<br>Vault = "sky"</td>
+                  <td><em>Missing</em></td>
+                </tr>
+                <tr>
+                  <td>Day 3a (v.9-10)</td>
+                  <td>"Let water be gathered"</td>
+                  <td>Land from seas<br>Dry ground = "land"<br>Waters = "seas"</td>
+                  <td>"God saw that it was good"</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <div class="creation-structure">
+            <h3>Creation Structure:</h3>
+            <p>Days 1-3 involve forming (creating spaces), while Days 4-6 involve filling those spaces:</p>
+            <ul>
+              <li>Day 1: Light and darkness → Day 4: Sun, moon, stars</li>
+              <li>Day 2: Sky and waters → Day 5: Birds and fish</li>
+              <li>Day 3: Land and vegetation → Day 6: Land animals and humans</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="central-message">
+      <h3>Central Message</h3>
+      <p>
+        Genesis 1:1-10 establishes the foundation of biblical theology: one sovereign God creates an ordered, good universe through the power of His word. 
+        This account stands in stark contrast to other ancient creation myths, emphasizing God's transcendence, purpose, and the inherent goodness of the material world.
+        These opening verses introduce the pattern of God bringing order from chaos and light from darkness—themes that will echo throughout Scripture.
+      </p>
+    </div>
+  </div>
+  
+  <script src="script.js"></script>
+</body>
 </html>
